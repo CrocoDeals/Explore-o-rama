@@ -3,14 +3,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <windows.h>
-#include <string.h>
 
 #define MAX_CAPACITE 10
 
 struct Destination {
   char* name;
-  int numero;
+  char* description;
+  int difficulte;
+  int acces[15];
 };
+
 typedef struct Destination desti;
 
 void color(int t,int f){
@@ -18,36 +20,51 @@ void color(int t,int f){
   SetConsoleTextAttribute(H,f*16+t);
 }
 
-void afficherDestination(desti desti){
-		printf("\n%d. %s\n\n",desti.numero, desti.name);
-	}
+void deplacement(desti destiAct, desti destiArr){
+  printf("\nDeplacement de %s au %s", destiAct.name, destiArr.name);
+  destiAct = destiArr;
+  printf("\n%s\n", destiArr.description);
+}
 
 int main(){
   char choixNomLieu[40];
-  desti chateau = {"Chateau-du-Compte", 1};
-  desti tombeau = {"Tombeau-du-Compte", 2};
+  desti chateau = {"Chateau-du-Compte", "Chateau du Compte Dracula, situe en haut de la colinne",rand()%19+1,{2}};
+  desti tombeau = {"Tombeau-du-Compte", "Tombeau du Compte Dracula, situe sous la colinne",rand()%19+1,{1,3}};
+  desti village = {"Village", "Village, Village situe au bord de la foret noire",rand()%19+1,{1,2}};
+  desti destiAct = village;
+  printf("\nVous vous trouvez actuellement au %s\n", destiAct.name);
   printf("\n||Voyez choisir un lieu ou aller ||\n");
-  printf("|| %d choix s'offrent a vous      ||\n\n", 2);
+  printf("\n|| %d choix s'offrent a vous      ||\n\n", 2);
   color(13,0);
-  afficherDestination(chateau);
+  printf("\n%s\n\n", chateau.name);
   color(1,0);
-  afficherDestination(tombeau);
+  printf("\n%s\n\n", tombeau.name);
   color(15,0);
-  scanf("%39s",&choixNomLieu);
-  printf("\n");
-    if (strcmp(choixNomLieu, chateau.name) == 0)
-    {
-      printf("Vous etes present dans le %s", chateau.name);
-    }
-    else if (strcmp(choixNomLieu, tombeau.name) == 0)
-    {
-      printf("Vous etes present dans le %s", tombeau.name);
-    }
-
-    else
-    {
-      printf("Attention au majuscule et au espace\n");
-    }
+  int i = 0;
+  while(i==0){
+    scanf("%39s",&choixNomLieu);
+    printf("\n");
+      if (strcmp(choixNomLieu, chateau.name) == 0)
+      {
+        deplacement(destiAct, chateau);
+        printf("Vous etes a present dans le %s\n", chateau.name);
+      }
+      else if (strcmp(choixNomLieu, tombeau.name) == 0)
+      {
+        deplacement(destiAct, tombeau);
+        printf("Vous etes a present dans le %s\n", tombeau.name);
+      }
+      else if (strcmp(choixNomLieu, village.name) == 0)
+      {
+        deplacement(destiAct, village);
+        printf("Vous etes a present dans le %s\n", village.name);
+      }
+      else
+      {
+        printf("Mauvaise Entree, Veuillez Recommencer\n");
+        scanf("%39s",&choixNomLieu);
+      }
+  }
 
 
   return 0;
