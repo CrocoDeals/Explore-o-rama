@@ -19,31 +19,34 @@ void color(int t,int f){
 }
 
 void afficherDestination(desti desti){
-		printf("\n%s\n\n", desti.name);
+		printf("\n%d. %s\n\n",desti.numero, desti.name);
 	}
 
 int main(){
-  int choixLieu = 2;
-  desti chateau = {"Chateau du Compte", 1};
-  desti tombeau = {"Tombeau du Compte", 2};
+  char choixNomLieu[40];
+  desti chateau = {"Chateau-du-Compte", 1};
+  desti tombeau = {"Tombeau-du-Compte", 2};
   printf("\n||Voyez choisir un lieu ou aller ||\n");
-  printf("|| %d choix s'offrent a vous      ||\n\n", choixLieu);
+  printf("|| %d choix s'offrent a vous      ||\n\n", 2);
   color(13,0);
   afficherDestination(chateau);
   color(1,0);
   afficherDestination(tombeau);
   color(15,0);
-  scanf("%d",&choixLieu);
-    switch(choixLieu){
-      case 1:
-        color(13,0);
-        afficherDestination(chateau);
-        break;
+  scanf("%39s",&choixNomLieu);
+  printf("\n");
+    if (strcmp(choixNomLieu, chateau.name) == 0)
+    {
+      printf("Vous etes present dans le %s", chateau.name);
+    }
+    else if (strcmp(choixNomLieu, tombeau.name) == 0)
+    {
+      printf("Vous etes present dans le %s", tombeau.name);
+    }
 
-      case 2:
-        color(1,0);
-        afficherDestination(tombeau);
-        break;
+    else
+    {
+      printf("Attention au majuscule et au espace\n");
     }
 
 
