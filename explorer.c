@@ -12,6 +12,7 @@ struct Destination {
   int difficulte;
   int acces[15];
 };
+
 typedef struct Destination desti;
 
 void color(int t,int f){
